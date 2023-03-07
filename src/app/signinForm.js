@@ -3,6 +3,7 @@ import { auth } from "./firebase.js";
 import { showMessage } from "./showMessage.js";
 
 const signInForm = document.querySelector("#login-form");
+const postList = document.querySelector(".posts");
 
 signInForm.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -11,7 +12,6 @@ signInForm.addEventListener("submit", async (e) => {
 
   try {
     const userCredentials = await signInWithEmailAndPassword(auth, email, password)
-    console.log(userCredentials)
 
     // Close the login modal
     const modal = bootstrap.Modal.getInstance(signInForm.closest('.modal'));
@@ -22,6 +22,14 @@ signInForm.addEventListener("submit", async (e) => {
 
     // show welcome message
     showMessage("Welcome" + userCredentials.user.email);
+
+    postList.innerHTML = `<li class="list-group-item list-group-item-action">
+      <h5>Post 1</h5>
+      <p>Culpa ullamco aute nulla nisi tempor ad.</p>
+      <h5>Post 2</h5>
+      <p>Et non commodo in magna laborum do amet.</p>
+    </li>`
+
   } catch (error) {
     if (error.code === 'auth/wrong-password') {
       showMessage("Wrong password", "error")

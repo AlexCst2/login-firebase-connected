@@ -1,8 +1,10 @@
-import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js" 
+import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js"
 import { auth } from "./firebase.js";
 import { showMessage } from "./showMessage.js";
 
 const signUpForm = document.querySelector("#signup-form");
+const postList = document.querySelector(".posts");
+const cancelBtn = document.getElementById("signUpCancelBtn");
 
 signUpForm.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -11,7 +13,6 @@ signUpForm.addEventListener("submit", async (e) => {
 
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password)
-    console.log(userCredential)
 
     // Close the signup modal
     const signupModal = document.querySelector('#signupModal');
@@ -22,7 +23,14 @@ signUpForm.addEventListener("submit", async (e) => {
     signUpForm.reset();
 
     // show welcome message
-    showMessage("Welcome" + userCredentials.user.email);
+    showMessage("Welcome" + userCredential.user.email);
+
+    postList.innerHTML = `<li class="list-group-item list-group-item-action">
+      <h5>Post 1</h5>
+      <p>Culpa ullamco aute nulla nisi tempor ad.</p>
+      <h5>Post 2</h5>
+      <p>Et non commodo in magna laborum do amet.</p>
+    </li>`
 
   } catch (error) {
     if (error.code === 'auth/email-already-in-use') {
@@ -36,4 +44,10 @@ signUpForm.addEventListener("submit", async (e) => {
     }
   }
 
+});
+
+cancelBtn.addEventListener('click', () => {
+  const signupModal = document.querySelector('#signupModal');
+  const modal = bootstrap.Modal.getInstance(signupModal);
+  modal.hide();
 });
