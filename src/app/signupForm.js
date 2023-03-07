@@ -23,7 +23,7 @@ signUpForm.addEventListener("submit", async (e) => {
     signUpForm.reset();
 
     // show welcome message
-    showMessage("Welcome" + userCredential.user.email);
+    showMessage("Welcome " + userCredential.user.email);
 
     postList.innerHTML = `<li class="list-group-item list-group-item-action">
       <h5>Post 1</h5>
