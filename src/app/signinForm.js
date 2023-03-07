@@ -21,7 +21,7 @@ signInForm.addEventListener("submit", async (e) => {
     signInForm.reset();
 
     // show welcome message
-    showMessage("Welcome" + userCredentials.user.email);
+    showMessage("Welcome " + userCredentials.user.email);
 
     postList.innerHTML = `<li class="list-group-item list-group-item-action">
       <h5>Post 1</h5>
